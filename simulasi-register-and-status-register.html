@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabel Register dan Status Register - Simulasi Mikroprosesor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #f8fafc; font-family: 'Inter', sans-serif; }
+    canvas { border: 1px solid #ccc; margin-top: 10px; background: #ffffff; border-radius: 0.5rem; }
+    section { transition: all 0.3s ease-in-out; }
+    section:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body class="p-6">
+
+  <!-- Judul -->
+  <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">
+    Tabel Register & Status Register (AVR / MIPS)
+  </h1>
+
+  <!-- Bagian Teori -->
+  <section class="bg-white p-6 rounded-2xl shadow mb-8">
+    <h2 class="text-2xl font-semibold mb-3 text-gray-800">Teori</h2>
+    <p class="text-gray-700 leading-relaxed mb-3">
+      Dalam arsitektur mikroprosesor seperti <strong>AVR</strong>, terdapat dua kelompok utama penyimpanan data:
+    </p>
+    <ul class="list-disc ml-6 text-gray-700 mb-3">
+      <li><strong>Register umum (R0–R31)</strong> berjumlah 32 buah, masing-masing berukuran 8-bit. Digunakan untuk menyimpan data sementara selama instruksi dijalankan.</li>
+      <li><strong>Status Register (SREG)</strong> adalah register khusus berukuran 8-bit yang menyimpan informasi hasil operasi aritmatika, seperti carry, overflow, atau tanda negatif.</li>
+    </ul>
+    <p class="text-gray-700 leading-relaxed">
+      Register dan flag ini sangat penting dalam pengambilan keputusan logika dalam program (seperti kondisi IF atau percabangan program pada level mesin).
+    </p>
+  </section>
+
+  <!-- Tabel Register Umum -->
+  <section class="bg-white p-6 rounded-2xl shadow mb-8">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Register Umum (R0 – R31)</h2>
+
+    <canvas id="registerCanvas" width="600" height="250"></canvas>
+    <p class="mt-3 text-gray-600 text-sm">
+      Tiap register menyimpan 1 byte (8 bit) data dengan nilai antara <strong>0–255 (0x00–0xFF)</strong>.
+    </p>
+
+    <script>
+      const canvas = document.getElementById("registerCanvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.font = "14px Arial";
+      ctx.textAlign = "center";
+      let x = 40, y = 40;
+      let reg = 0;
+
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 8; col++) {
+          ctx.strokeRect(x + col * 70, y + row * 40, 60, 30);
+          ctx.fillText(`R${reg}`, x + col * 70 + 30, y + row * 40 + 20);
+          reg++;
+        }
+      }
+    </script>
+  </section>
+
+  <!-- Status Register -->
+  <section class="bg-white p-6 rounded-2xl shadow mb-8">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Status Register (SREG - Bit 7–0)</h2>
+
+    <canvas id="statusCanvas" width="700" height="100"></canvas>
+    <script>
+      const c2 = document.getElementById("statusCanvas");
+      const s = c2.getContext("2d");
+
+      const bits = [
+        {bit:7, flag:'I', desc:'Global Interrupt Enable'},
+        {bit:6, flag:'T', desc:'Transfer Bit'},
+        {bit:5, flag:'H', desc:'Half Carry'},
+        {bit:4, flag:'S', desc:'Sign Flag'},
+        {bit:3, flag:'V', desc:'Overflow Flag'},
+        {bit:2, flag:'N', desc:'Negative Flag'},
+        {bit:1, flag:'Z', desc:'Zero Flag'},
+        {bit:0, flag:'C', desc:'Carry Flag'}
+      ];
+
+      s.font = "14px Arial";
+      s.textAlign = "center";
+      bits.forEach((b, i) => {
+        s.strokeRect(30 + i * 80, 30, 60, 40);
+        s.fillText(`B${b.bit}`, 30 + i * 80 + 30, 50);
+        s.fillText(b.flag, 30 + i * 80 + 30, 70);
+      });
+    </script>
+
+    <div class="overflow-x-auto mt-4">
+      <table class="table-auto w-full border-collapse border border-gray-300 text-center text-sm">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-2 py-1">Bit</th>
+            <th class="border px-2 py-1">Nama</th>
+            <th class="border px-2 py-1">Keterangan</th>
+            <th class="border px-2 py-1">Penjelasan Sederhana</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>7</td><td>I</td><td>Global Interrupt Enable</td><td>Mengaktifkan sistem agar bisa merespons sinyal interupsi.</td></tr>
+          <tr><td>6</td><td>T</td><td>Transfer Bit</td><td>Digunakan pada operasi logika tertentu, seperti pertukaran bit antar register.</td></tr>
+          <tr><td>5</td><td>H</td><td>Half Carry</td><td>Aktif jika ada carry dari bit ke-3 ke bit ke-4, penting pada operasi BCD.</td></tr>
+          <tr><td>4</td><td>S</td><td>Sign Flag</td><td>Menunjukkan tanda hasil operasi: 1 jika negatif, 0 jika positif.</td></tr>
+          <tr><td>3</td><td>V</td><td>Overflow Flag</td><td>Aktif jika hasil operasi melebihi kapasitas bit (overflow aritmatika).</td></tr>
+          <tr><td>2</td><td>N</td><td>Negative Flag</td><td>Bernilai 1 jika hasil operasi bernilai negatif.</td></tr>
+          <tr><td>1</td><td>Z</td><td>Zero Flag</td><td>Bernilai 1 jika hasil operasi sama dengan nol.</td></tr>
+          <tr><td>0</td><td>C</td><td>Carry Flag</td><td>Aktif jika ada carry/borrow pada hasil penjumlahan atau pengurangan.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Praktik Simulasi -->
+  <section class="bg-white p-6 rounded-2xl shadow mb-8">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Praktik Simulasi Flag</h2>
+
+    <p class="text-gray-700 mb-3">
+      Berikut simulasi sederhana bagaimana flag pada status register berubah setelah operasi aritmatika.
+      Masukkan dua angka (0–255) untuk dijumlahkan:
+    </p>
+
+    <div class="flex flex-wrap gap-3 mb-4">
+      <input id="a" type="number" placeholder="Angka 1" class="border px-3 py-2 rounded w-32">
+      <input id="b" type="number" placeholder="Angka 2" class="border px-3 py-2 rounded w-32">
+      <button onclick="calculate()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Hitung</button>
+    </div>
+
+    <div class="bg-gray-50 p-4 rounded-md border">
+      <p id="result" class="text-lg font-mono text-gray-800 mb-3"></p>
+      <div id="flags" class="text-gray-700 text-sm leading-relaxed"></div>
+    </div>
+
+    <script>
+      function calculate() {
+        const a = parseInt(document.getElementById("a").value);
+        const b = parseInt(document.getElementById("b").value);
+        if (isNaN(a) || isNaN(b)) return alert("Masukkan angka valid!");
+
+        const sum = a + b;
+        const result = sum & 0xFF; // hasil 8-bit
+        const carry = sum > 0xFF ? 1 : 0;
+        const zero = result === 0 ? 1 : 0;
+        const negative = (result & 0x80) ? 1 : 0;
+        const overflow = ((a ^ result) & (b ^ result) & 0x80) ? 1 : 0;
+
+        document.getElementById("result").textContent =
+          `Hasil (8-bit): ${result} (0x${result.toString(16).toUpperCase()})`;
+
+        document.getElementById("flags").innerHTML = `
+          <strong>Analisis Flag:</strong><br>
+          • Carry (C): ${carry} → ${carry ? "Terjadi carry dari bit 7" : "Tidak ada carry"}<br>
+          • Zero (Z): ${zero} → ${zero ? "Hasil sama dengan nol" : "Hasil bukan nol"}<br>
+          • Negative (N): ${negative} → ${negative ? "Hasil bernilai negatif (bit 7 = 1)" : "Hasil positif"}<br>
+          • Overflow (V): ${overflow} → ${overflow ? "Terjadi overflow aritmatika" : "Tidak ada overflow"}
+        `;
+      }
+    </script>
+  </section>
+
+  <!-- Penutup -->
+  <footer class="text-center text-gray-500 mt-8 text-sm">
+    Dibuat oleh <strong>Muhammad Ikhwan Fathulloh</strong> • Simulasi Register Mikroprosesor © 2025
+  </footer>
+
+</body>
+</html>

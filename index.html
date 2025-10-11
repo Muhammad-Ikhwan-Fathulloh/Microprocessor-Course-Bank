@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulasi Register Mikroprosesor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      padding: 3rem 2rem;
+      transition: all 0.3s ease;
+      max-width: 600px;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">
+      Simulasi Register Mikroprosesor
+    </h1>
+    <p class="text-gray-600 mb-6 leading-relaxed">
+      Selamat datang di <strong>Simulasi Register & Status Register</strong> berbasis web.<br>
+      Di sini Anda dapat mempelajari bagaimana register umum (R0–R31) dan <em>Status Register (SREG)</em> bekerja,
+      serta melihat perubahan flag (C, Z, N, V, S) secara interaktif melalui simulasi.
+    </p>
+
+    <a href="simulasi-register-and-status-register.html"
+       class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all">
+      Mulai Simulasi
+    </a>
+
+    <p class="text-gray-400 text-sm mt-6">
+      Dibuat oleh <strong>Muhammad Ikhwan Fathulloh</strong> <br>
+      Universitas Teknologi Bandung • © 2025
+    </p>
+  </div>
+</body>
+</html>
