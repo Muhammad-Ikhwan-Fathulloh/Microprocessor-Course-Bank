@@ -173,7 +173,7 @@ void loop() {
 
 ## 7. Praktik 3: Menangani “Bounce” pada Tombol
 
-Masalah umum saat menggunakan tombol adalah **noise** atau **bouncing** — sinyal tombol bisa berubah beberapa kali dalam milidetik, sehingga interupsi bisa terpanggil berkali-kali.
+Masalah umum saat menggunakan tombol adalah **noise** atau **bouncing** sinyal tombol bisa berubah beberapa kali dalam milidetik, sehingga interupsi bisa terpanggil berkali-kali.
 
 ### Solusi: Tambahkan penundaan singkat (debounce) menggunakan waktu millis()
 
