@@ -29,7 +29,7 @@ if (digitalRead(buttonPin) == LOW) {
 
 Cara ini disebut **polling**, dan bisa menyebabkan respon lambat jika program utama sibuk.
 
-Dengan interupsi, mikrokontroler **langsung tahu** saat tombol ditekan — bahkan jika program utama sedang melakukan hal lain.
+Dengan interupsi, mikrokontroler **langsung tahu** saat tombol ditekan - bahkan jika program utama sedang melakukan hal lain.
 
 ---
 
