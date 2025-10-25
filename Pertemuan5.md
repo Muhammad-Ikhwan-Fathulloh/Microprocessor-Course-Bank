@@ -297,7 +297,7 @@ void loop() {
 
 ## **12. Diagram Hubungan PWM dengan Output Tegangan**
 
-![PWM Average Voltage](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/PWM_duty_cycle_with_legend.svg/1280px-PWM_duty_cycle_with_legend.svg.png)
+![PWM Average Voltage](https://image.slidesharecdn.com/pulsewidthmodulation-140911010945-phpapp02/75/Pulse-width-modulation-1-2048.jpg)
 
 **Keterangan:**
 
