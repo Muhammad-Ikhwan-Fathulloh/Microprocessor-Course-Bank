@@ -307,5 +307,3 @@ PWM (Pulse Width Modulation) memungkinkan kontrol **daya, tegangan rata-rata, da
 
 * Menawarkan **resolusi tinggi, frekuensi variabel, dan multi-channel**.
 * Cocok untuk aplikasi **AIoT, kontrol motor presisi, atau LED RGB**.
-
-Apakah kamu ingin saya bantu tambahkan **bagian lanjutan “PWM Lanjutan (Servo, RGB LED, dan kontrol kecepatan motor dengan feedback sensor)”** agar bisa dijadikan **modul kelas tingkat menengah (IoT/Robotik)**?
