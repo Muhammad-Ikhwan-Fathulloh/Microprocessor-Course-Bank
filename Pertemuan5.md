@@ -50,9 +50,7 @@ Duty Cycle 75%   ____________----________
 
 Secara matematis, tegangan rata-rata yang dihasilkan PWM adalah:
 
-[
 V_{avg} = DutyCycle \times V_{max}
-]
 
 Keterangan:
 
@@ -64,9 +62,7 @@ Keterangan:
 
 Jika Arduino mengeluarkan 5V dan duty cycle = 60%, maka:
 
-[
 V_{avg} = 0.6 \times 5V = 3V
-]
 
 Artinya, LED akan menyala **setara dengan** diberi tegangan konstan 3V.
 
@@ -76,7 +72,7 @@ Artinya, LED akan menyala **setara dengan** diberi tegangan konstan 3V.
 
 ### **Gambar: Gelombang PWM dan Duty Cycle**
 
-![PWM Illustration](https://www.etechnophiles.com/wp-content/uploads/2021/03/pwm-graph.jpg)
+![PWM Illustration](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiB6s5aFB_mJpENTHkvDgYKnK_RQSb65juONi8Y97dCWK5Wtc7r2hwavGwDdQW2X7yStmArHdOIiJL36-ikKLFhFVAFQCNZ1lY_SYL3cN2keD8_tk8zKPKsIr8MatEN3V38OMKIQndrwto/s1600/Untitled3.jpg)
 
 Keterangan:
 
