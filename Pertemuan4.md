@@ -122,12 +122,15 @@ Nilai yang ditunjuk pointer: 42
 
 ### a. Konsep
 
-Kita bisa menggunakan pointer untuk menunjuk ke pin LED dan Button agar program lebih dinamis.
-Dengan cara ini, jika kita mengubah pin, cukup ubah nilai variabelnya — pointer akan mengikuti otomatis.
+Pointer sangat berguna di lingkungan **Arduino** dan **ESP32** untuk:
+
+* Mengakses pin secara dinamis.
+* Mengontrol sensor dan aktuator dari alamat memori variabel.
+* Membuat fungsi fleksibel yang bisa menerima berbagai jenis input (pin, data, sensor).
 
 ---
 
-### b. Kode Implementasi pada Arduino
+### b. Implementasi Dasar LED dan Tombol
 
 ```cpp
 int ledPin = 13;
@@ -155,36 +158,154 @@ void loop() {
 **Penjelasan:**
 
 * `*led` dan `*button` adalah nilai pin yang ditunjuk oleh pointer.
-* Jika `button` ditekan, maka LED menyala.
+* Jika tombol ditekan (LOW), LED akan menyala.
+* Pointer membuat kode ini mudah dimodifikasi untuk perangkat berbeda.
 
 ---
 
 ### c. Implementasi pada ESP32
 
-Pada ESP32, gunakan pin GPIO yang sesuai (misalnya LED di pin 2, Button di pin 4):
+ESP32 memiliki pin PWM yang bisa dikontrol menggunakan fungsi `ledcWrite`.
+Kita bisa menggunakan pointer untuk menentukan pin LED secara dinamis:
 
 ```cpp
 int ledPin = 2;
-int buttonPin = 4;
-
 int *led = &ledPin;
-int *button = &buttonPin;
 
 void setup() {
-  pinMode(*led, OUTPUT);
-  pinMode(*button, INPUT_PULLUP);
+  ledcSetup(0, 5000, 8); // Channel 0, frekuensi 5kHz, resolusi 8-bit
+  ledcAttachPin(*led, 0);
 }
 
 void loop() {
-  int buttonState = digitalRead(*button);
-
-  if (buttonState == LOW) {
-    digitalWrite(*led, HIGH);
-  } else {
-    digitalWrite(*led, LOW);
+  for (int i = 0; i <= 255; i++) {
+    ledcWrite(0, i);
+    delay(10);
+  }
+  for (int i = 255; i >= 0; i--) {
+    ledcWrite(0, i);
+    delay(10);
   }
 }
 ```
+
+**Penjelasan:**
+
+* Pointer `*led` menunjuk pin LED yang dikontrol oleh channel PWM.
+* `ledcWrite()` mengatur kecerahan LED secara halus (PWM control).
+
+---
+
+### d. Pointer dengan Fungsi (Pass by Reference)
+
+```cpp
+void nyalakanLED(int *pin) {
+  digitalWrite(*pin, HIGH);
+}
+
+void matikanLED(int *pin) {
+  digitalWrite(*pin, LOW);
+}
+
+int ledPin = 13;
+int *led = &ledPin;
+
+void setup() {
+  pinMode(*led, OUTPUT);
+}
+
+void loop() {
+  nyalakanLED(led);
+  delay(500);
+  matikanLED(led);
+  delay(500);
+}
+```
+
+**Penjelasan:**
+
+* Fungsi menerima pointer (`int *pin`), bukan nilai pin langsung.
+* Ini memungkinkan fungsi mengontrol LED mana pun hanya dengan mengubah variabel `ledPin`.
+
+---
+
+### e. Pointer dengan Array Sensor
+
+```cpp
+float sensorValues[3] = {25.6, 28.1, 29.3};
+float *ptr = sensorValues;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  for (int i = 0; i < 3; i++) {
+    Serial.print("Sensor ");
+    Serial.print(i + 1);
+    Serial.print(": ");
+    Serial.println(*(ptr + i));
+  }
+  delay(2000);
+}
+```
+
+**Penjelasan:**
+
+* `ptr` menunjuk ke elemen pertama array sensor.
+* `*(ptr + i)` membaca nilai sensor ke-i secara langsung.
+
+---
+
+### f. Pointer pada Struct (Data Sensor)
+
+```cpp
+struct SensorData {
+  String name;
+  float value;
+};
+
+SensorData temp = {"Temperature", 27.5};
+SensorData *ptr = &temp;
+
+void setup() {
+  Serial.begin(9600);
+  Serial.print(ptr->name);
+  Serial.print(": ");
+  Serial.println(ptr->value);
+}
+```
+
+**Penjelasan:**
+
+* `->` digunakan untuk mengakses atribut dalam struct melalui pointer.
+* Cocok untuk sistem sensor yang menyimpan banyak data sekaligus.
+
+---
+
+### g. Pointer ke Pointer (Double Pointer) di ESP32
+
+```cpp
+int ledPin = 2;
+int *ptr = &ledPin;
+int **doublePtr = &ptr;
+
+void setup() {
+  pinMode(**doublePtr, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(**doublePtr, HIGH);
+  delay(500);
+  digitalWrite(**doublePtr, LOW);
+  delay(500);
+}
+```
+
+**Penjelasan:**
+
+* `doublePtr` menyimpan alamat dari pointer `ptr`.
+* `**doublePtr` mengakses nilai asli (`ledPin`).
 
 ---
 
@@ -199,16 +320,12 @@ void loop() {
 
 ---
 
-## 11. Latihan Pemahaman
+## 11. Kesimpulan
 
-**Tugas:**
+Pointer memberikan **kontrol langsung terhadap memori**, memungkinkan program **efisien, dinamis, dan hemat memori**.
+Pada **Arduino dan ESP32**, pointer digunakan untuk:
 
-1. Buat program yang menyalakan LED hanya jika nilai dari variabel `status` (yang diakses melalui pointer) bernilai `1`.
-2. Ubah pin LED melalui pointer tanpa mengganti kode utama.
-
----
-
-## 12. Kesimpulan
-
-Pointer memberikan **kontrol langsung terhadap memori**, memungkinkan kita membuat program yang **efisien dan fleksibel**, terutama dalam pemrograman **embedded system** seperti Arduino dan ESP32.
-Namun, pointer juga membawa **risiko bug dan kesalahan memori**, sehingga pemahaman mendalam tentang cara kerja memori sangat penting sebelum menggunakannya.
+* Mengakses pin input/output secara fleksibel.
+* Mengatur data sensor secara efisien.
+* Mengurangi overhead fungsi dengan “pass by reference”.
+* Mengontrol PWM dan LED dengan presisi tinggi.
