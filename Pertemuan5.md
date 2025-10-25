@@ -297,18 +297,8 @@ void loop() {
 
 ---
 
-## **12. Diagram Hubungan PWM dengan Output Tegangan**
 
-![PWM Average Voltage](https://www.tek.com/-/media/marketing-docs/p/power-analysis-pwm-motor-drives/fig-7.png)
-
-**Keterangan:**
-
-* Warna biru: sinyal PWM.
-* Warna merah: tegangan rata-rata ( V_{avg} ) yang diterima oleh beban.
-
----
-
-## **13. Kesimpulan**
+## **12. Kesimpulan**
 
 PWM (Pulse Width Modulation) memungkinkan kontrol **daya, tegangan rata-rata, dan efisiensi energi** hanya dengan sinyal digital.
 
