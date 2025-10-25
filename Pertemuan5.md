@@ -33,6 +33,8 @@ PWM memiliki tiga parameter penting:
 
 ### **3. Representasi Gelombang PWM**
 
+![PWM Average Voltage](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGP95iAeWl-itEqW3YvsUoX0xYtCqvZYtbv92Val-tNQBfuTHj8fzqPZSgb6eLwBA6hv0DFMo7DwFunN6_qq5e8smmdvZbjxm-KqMLoe0SGcSOudc-5qvyzJb8oagLZUiDlKzDyzXvuA/s1600/005-apa-pengertian-pwm-arduino-adalah.png)
+
 ```
 Duty Cycle 25%   ___----___----___----___
 Duty Cycle 50%   ________--------________
@@ -297,7 +299,7 @@ void loop() {
 
 ## **12. Diagram Hubungan PWM dengan Output Tegangan**
 
-![PWM Average Voltage](https://image.slidesharecdn.com/pulsewidthmodulation-140911010945-phpapp02/75/Pulse-width-modulation-1-2048.jpg)
+![PWM Average Voltage](https://www.tek.com/-/media/marketing-docs/p/power-analysis-pwm-motor-drives/fig-7.png)
 
 **Keterangan:**
 
