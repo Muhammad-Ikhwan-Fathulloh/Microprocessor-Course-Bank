@@ -223,5 +223,3 @@ void kirimJSON() {
 * **ArduinoJson** lebih kuat dan fleksibel, ideal untuk komunikasi data kompleks pada ESP32/ESP8266.
 * **Arduino_Json** lebih ringan dan sederhana, cocok untuk board kecil seperti Arduino UNO atau Nano.
 * Keduanya dapat digunakan untuk mengirim status perangkat dalam format JSON, tergantung kebutuhan proyek dan sumber daya board.
-
-Apakah kamu ingin saya lanjutkan versi **lanjutan berikutnya**, yaitu **implementasi JSON dengan millis(), interrupt, pointer, dan PWM**, agar LED tidak hanya ON/OFF tetapi juga dikendalikan intensitas dan waktu kirimnya secara real-time?
