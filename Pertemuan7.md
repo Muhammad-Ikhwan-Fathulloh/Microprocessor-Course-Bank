@@ -219,5 +219,3 @@ void kirimJSON(unsigned long waktu) {
 * **pointer** berguna untuk mengelola variabel secara efisien di fungsi terpisah.
 * **PWM** memungkinkan kontrol analog semu pada LED.
 * **ArduinoJson** dan **Arduino_Json** dapat digunakan untuk mengirim status sistem dalam format standar IoT (JSON).
-
-Apakah kamu ingin saya lanjutkan ke **versi integrasi IoT (MQTT + JSON + millis + PWM)** untuk dijadikan **materi lanjutan sesi 3**, agar bisa dikirim ke dashboard seperti Node-RED atau Blynk?
