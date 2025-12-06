@@ -171,5 +171,3 @@ void loop() {
 ```
 
 * Dengan Preferences, pengguna bisa update SSID & password tanpa mengubah sketch.
-
-Apakah mau saya buatkan versi interaktif itu juga?
