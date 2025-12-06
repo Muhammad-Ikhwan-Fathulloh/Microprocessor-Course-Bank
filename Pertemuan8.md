@@ -154,12 +154,23 @@ void loop() {
 * `prefs.getInt(key, default)`: baca integer.
 * `prefs.end()`: menutup akses.
 
+# Perbedaan EEPROM vs Preferences di ESP32
+
+| Aspek                    | EEPROM                                                                                | Preferences                                                                                         |
+| ------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **Definisi**             | Emulasi memori EEPROM menggunakan flash internal ESP32. Menyimpan data byte-per-byte. | Library ESP32 untuk penyimpanan key-value di flash internal, lebih fleksibel.                       |
+| **Tipe Data**            | Byte (1 byte per alamat). Bisa menulis angka 0–255 per alamat.                        | Mendukung int, long, float, double, bool, string, dan byte array.                                   |
+| **Ukuran Maksimum**      | Terbatas sesuai buffer EEPROM yang diinisialisasi (misal 512 byte, 1 KB).             | Terbatas oleh ukuran flash, tapi lebih fleksibel untuk data lebih besar dan banyak.                 |
+| **Cara Menulis**         | `EEPROM.write(address, value)` diikuti `EEPROM.commit()`.                             | `prefs.putInt(key, value)` / `prefs.putString(key, value)` langsung menulis dengan key.             |
+| **Cara Membaca**         | `EEPROM.read(address)`.                                                               | `prefs.getInt(key, default)` / `prefs.getString(key, default)`.                                     |
+| **Penyimpanan Permanen** | Harus memanggil `EEPROM.commit()` untuk menyimpan ke flash.                           | Otomatis tersimpan di flash ketika `put` dipanggil.                                                 |
+| **Kelebihan**            | Simpel untuk data byte sederhana, contoh: status ON/OFF, angka kecil.                 | Fleksibel, mendukung berbagai tipe data, lebih mudah digunakan untuk konfigurasi dan data aplikasi. |
+| **Kekurangan**           | Sulit menyimpan tipe data kompleks, menulis berulang bisa mengurangi umur flash.      | Membutuhkan key untuk tiap data, tidak byte-per-byte, sedikit lebih berat dari EEPROM.              |
+| **Use Case Ideal**       | Data kecil, jarang berubah, misal flag sensor, status perangkat.                      | Data konfigurasi, counter, string, setting aplikasi, data IoT yang lebih kompleks.                  |
+
 ---
 
-## Bagian 4: Rekomendasi untuk Proyek IoT
+### Kesimpulan Singkat
 
-* Gunakan **Preferences** untuk konfigurasi dan data yang lebih kompleks.
-* Gunakan **EEPROM** untuk data sederhana yang jarang diubah.
-* Selalu commit perubahan EEPROM.
-
-Apakah mau saya buatkan versi itu juga?
+* Gunakan **EEPROM** untuk data kecil dan sederhana yang jarang diubah.
+* Gunakan **Preferences** untuk data konfigurasi lebih kompleks atau ketika ingin menyimpan tipe data selain byte.
