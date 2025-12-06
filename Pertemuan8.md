@@ -6,6 +6,7 @@
 
 * Download Arduino IDE versi terbaru dari [arduino.cc](https://www.arduino.cc/en/software).
 * Bisa pakai versi klasik (1.8.x) atau versi 2.0.
+* Installing the ESP32 Board in Arduino IDE (Windows, Mac OS X, Linux) [randomnerdtutorials.com]([https://www.arduino.cc/en/software](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)).
 
 ### Step 2: Buka Preferences
 
