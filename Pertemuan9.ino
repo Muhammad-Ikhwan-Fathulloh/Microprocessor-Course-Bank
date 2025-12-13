@@ -11,7 +11,7 @@ String password = prefs.getString("password", "DatinLembur");
 unsigned long previousMillis = 0;
 const long interval = 5000; // cek koneksi setiap 10 detik
 
-const char webpage[] PROGMEM = R"====(
+const char webpage[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html lang="en">
 <head>
