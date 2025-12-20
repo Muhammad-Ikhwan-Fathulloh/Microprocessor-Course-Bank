@@ -11,7 +11,7 @@ Kode ini membuat sistem IoT ESP32 dengan kemampuan:
 
 ---
 
-## 2. **Penjelasan Bagian per Bagian**
+## 2. **Penjelasan**
 
 ### **2.1 Inisialisasi Library dan Variabel Global**
 
